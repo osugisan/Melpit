@@ -28,8 +28,7 @@ class Header extends Component
     {
        $user = Auth::user();
 
-       $categories = PrimaryCategory::query()
-           ->with([
+       $categories = PrimaryCategory::with([
                 'secondaryCategories' => function ($query) {
                     $query->orderBy('sort_no');
                 }
