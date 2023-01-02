@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Payjp\Charge;
 
 class ItemController extends Controller
 {
@@ -113,6 +114,15 @@ class ItemController extends Controller
 
             $seller->sales += $item->price;
             $seller->save();
+
+            $charge = Charge::create([
+                'card' => $token,
+                'amount' => $item->price,
+                'currency' => 'jpy',
+            ]);
+            if (!$charge->captured) {
+                throw new \Exception('支払確定失敗');
+            }
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
