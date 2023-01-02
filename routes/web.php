@@ -18,7 +18,6 @@ Route::get('', 'ItemController@showItems')->name('top');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('items/{item}', 'ItemController@showItemDetail')->name('item');
 
 Route::middleware('auth')

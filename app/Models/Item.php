@@ -9,6 +9,10 @@ class Item extends Model
     const STATE_SELLING = 'selling';
     const STATE_BOUGHT = 'bought';
 
+    protected $casts = [
+        'bought_at' => 'datetime',
+    ];
+
     public function secondaryCategory()
     {
         return $this->belongsTo(SecondaryCategory::class);
